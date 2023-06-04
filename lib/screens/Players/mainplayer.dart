@@ -15,7 +15,9 @@ import 'bowling.dart';
 
 
 class Mainplayer extends StatefulWidget {
-  const Mainplayer({Key? key}) : super(key: key);
+  // const Mainplayer({Key? key}) : super(key: key);
+   var PlayerProfile;
+   Mainplayer(this.PlayerProfile);
 
   @override
   _MainplayerState createState() => _MainplayerState();
@@ -89,12 +91,12 @@ class _MainplayerState extends State<Mainplayer> {
                               ),
                             ),
                           ),
-                          const Expanded(
+                           Expanded(
                               child: TabBarView(
                             children: [
-                              Profilee(),
-                         Battings(),
-                          Bowlings(),
+                              Profilee(widget.PlayerProfile),
+                         Battings(widget.PlayerProfile),
+                          Bowlings(widget.PlayerProfile),
                             ],
                           ))
                         ],

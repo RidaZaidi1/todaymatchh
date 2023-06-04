@@ -1,24 +1,26 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:today/screens/Players/mainplayer.dart';
 import 'package:http/http.dart' as http;
+import 'package:today/screens/Players/mainplayer.dart';
 import '../../modecontroller.dart';
-import 'dart:convert';
-class Squad11 extends StatefulWidget {
- // const Squad11({Key? key}) : super(key: key);
-var PlayerProfile1;
-   Squad11(this.PlayerProfile1);
+
+
+class Playerslist1 extends StatefulWidget {
+    var PlayerProfile1;
+   Playerslist1(this.PlayerProfile1);
   @override
-  State<Squad11> createState() => _Squad11State();
+  State<Playerslist1> createState() => _Playerslist1State();
 }
 
 final controller = Get.put(DarkModeController());
 
-class _Squad11State extends State<Squad11> {
- void initState() {
+class _Playerslist1State extends State<Playerslist1> {
+  void initState() {
     super.initState();
-    print("ridass");
-    print(widget.PlayerProfile1);
+    print("rida");
+    print(widget.PlayerProfile1["tid"]);
     getSeries();
   }
 
@@ -27,15 +29,15 @@ class _Squad11State extends State<Squad11> {
     
     final String apiUrl =
        
+   'https://rest.entitysport.com/v2/teams/${widget.PlayerProfile1["tid"]}/player?token=f94a09518bdeb24c299555502fa6bdb6';
    
-   'https://rest.entitysport.com/v2/teams/${widget.PlayerProfile1}/player?token=f94a09518bdeb24c299555502fa6bdb6';
     final response = await http.get(Uri.parse(apiUrl));
     var data = json.decode(response.body);
-    print(data["response"]["items"]["players"]["odi"]);
+    print(data["response"]["items"]["players"]['odi']);
     for (var i = 0;
-        i < data["response"]["items"]["players"]["odi"].length;
+        i < data["response"]["items"]['players']['odi'].length;
         i++) {
-      PlayerLists.add(data["response"]["items"]["players"]["odi"][i]);
+      PlayerLists.add(data["response"]["items"]['players']['odi'][i]);
       // data["response"]["ranks"]['batsmen']['odis'][i];
     }
     setState(() {});
@@ -52,16 +54,84 @@ class _Squad11State extends State<Squad11> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
+        backgroundColor: Color(0xff020e28),
+        body: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(top: 10),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(controller.mode == 'light'
+                        ? "assets/backgroundlight.jpg"
+                        : "assets/background.jpg"),
+                    fit: BoxFit.cover)),
+            child: Scaffold(
               backgroundColor: Colors.transparent,
-              body: SingleChildScrollView(
-                child: Column(children: [
-                 
-                 
-                 
+              body: 
+              
+              SingleChildScrollView(
+                child: 
                 
+                
+                Column(children: [
+                  SizedBox(
+                    height: 25,
+                  ),
                   Container(
-                    height: 530,
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: controller.mode == 'light'
+                            ? Color(0xff1A3A90)
+                            : Color(0xff373e52),
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(50),
+                            bottomRight: Radius.circular(50))),
+                    child: Center(
+                        child: Text(
+                      'Players',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w800),
+                    )),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 60,
+                    width: 390,
+                    decoration: BoxDecoration(
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 6.0,
+                            offset: Offset(0.0, 0.2))
+                      ],
+                    ),
+                    child: TextField(
+                      cursorColor: Color(0xff020e28),
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintText: 'Search Player...',
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 154, 150, 150),
+                            fontSize: 16),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Color(0xff020e28),
+                          size: 20,
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(60),
+                            borderSide: BorderSide.none),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 610,
                     width: double.infinity,
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
@@ -153,7 +223,8 @@ Image.asset(
                     ),
                   )
                 ]),
-              ));
-          
+              ),
+            )));
   }
 }
+  

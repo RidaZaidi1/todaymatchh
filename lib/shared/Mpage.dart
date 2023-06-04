@@ -17,33 +17,36 @@ class _MpageState extends State<Mpage> {
   @override
   Widget build(BuildContext context) {
        Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: DefaultTabController(
-  length: 3,
-  child: Scaffold(
-    backgroundColor: Colors.transparent,
+    return Container(
 
-      appBar: TabBar(
-        indicatorSize: TabBarIndicatorSize.label,
-        indicatorWeight: 4.0,
-        labelColor:  controller.mode == 'light'? Color(0xff06122c) :Colors.white ,
-        labelStyle: TextStyle(fontWeight: FontWeight.w700,fontSize: 16),
-        indicatorColor: Color(0xff8cb3ea),
-        tabs: [
-          Tab(text: "Upcoming",),
-          Tab(text: "Live",),
-          Tab(text: "Result",),
+      child: DefaultTabController(
+  length: 3,
+  child: Transform.translate(
+    offset: Offset(0, -15),
+    child: Scaffold(
+      backgroundColor: Colors.transparent,
+  
+        appBar: TabBar(
+          indicatorSize: TabBarIndicatorSize.label,
+          indicatorWeight: 4.0,
+          labelColor:  controller.mode == 'light'? Color(0xff06122c) :Colors.white ,
+          labelStyle: TextStyle(fontWeight: FontWeight.w700,fontSize: 16),
+          indicatorColor: Color(0xff8cb3ea),
+          tabs: [
+            Tab(text: "Upcoming",),
+            Tab(text: "Live",),
+            Tab(text: "Result",),
+          ],
+        ),
+       
+      body: TabBarView(
+        children: [
+  
+       Upcomingg2(),
+     Liveerror(),
+          Result(),
         ],
       ),
-     
-    body: TabBarView(
-      children: [
-
-     Upcomingg(),
-   Liveerror(),
-        Result(),
-      ],
     ),
   ),
 ),

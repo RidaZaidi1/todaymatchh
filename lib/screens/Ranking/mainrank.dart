@@ -39,16 +39,16 @@ class _MainrankState extends State<Mainrank> {
                           ? "assets/backgroundlight.jpg"
                           : "assets/background.jpg"),
                       fit: BoxFit.cover)),
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                body: DefaultTabController(
+              child: Container(
+           
+                child: DefaultTabController(
                   length: 3,
                   child: Scaffold(
                       backgroundColor: Colors.transparent,
                       body: Column(
                         children: [
                           Container(
-                            height: 80,
+                            height: 70,
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 color: controller.mode == 'light'
@@ -93,9 +93,9 @@ class _MainrankState extends State<Mainrank> {
                               child: TabBarView(
                             children: [
                              Odimain(),
-                              T20main(),
+                          
                            Testmain(),
-                        
+                            T20main(),
                             ],
                           ))
                         ],

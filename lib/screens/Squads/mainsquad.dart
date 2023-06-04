@@ -8,8 +8,9 @@ import 'squad11.dart';
 import 'squad2.dart';
 
 class Squadmain extends StatefulWidget {
-  const Squadmain({Key? key}) : super(key: key);
-
+  //const Squadmain({Key? key}) : super(key: key);
+var PlayerProfile1;
+   Squadmain(this.PlayerProfile1);
   @override
   _SquadmainState createState() => _SquadmainState();
 }
@@ -17,6 +18,12 @@ class Squadmain extends StatefulWidget {
 final controller = Get.put(DarkModeController());
 
 class _SquadmainState extends State<Squadmain> {
+
+    void initState() {
+    super.initState();
+     print(widget.PlayerProfile1[0]['teama']["name"]);
+  
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -76,22 +83,22 @@ class _SquadmainState extends State<Squadmain> {
                                   borderRadius: BorderRadius.circular(25.0)),
                               labelColor: Color(0xff0E317C),
                               unselectedLabelColor: Colors.white,
-                              tabs: const [
+                              tabs:  [
                                 Tab(
-                                  text: 'Ireland',
+                                  text:widget.PlayerProfile1[0]['teama']["name"],
                                 ),
                                 Tab(
-                                  text: 'Bangladesh',
+                                  text: widget.PlayerProfile1[0]['teamb']["name"],
                                 ),
                               ],
                             ),
                           ),
                         ),
-                        const Expanded(
+                         Expanded(
                             child: TabBarView(
                           children: [
-                            Squad11(),
-                            Squad2(),
+                            Squad11(widget.PlayerProfile1[0]['teama']["team_id"]),
+                            Squad2(widget.PlayerProfile1[0]['teamb']["team_id"]),
                           ],
                         ))
                       ],

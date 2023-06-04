@@ -6,27 +6,29 @@ import 'package:flutter/material.dart';
 import 'package:today/screens/Squads/mainsquad.dart';
 import 'package:get/get.dart';
 import 'package:today/screens/series/playerlist2.dart';
-import '../modecontroller.dart';
+
 import 'package:http/http.dart' as http;
 
-import 'series/playerslist.dart';
+import '../../modecontroller.dart';
 
-class Infoo extends StatefulWidget {
+class Infoo1 extends StatefulWidget {
   // const Infoo({ Key? key }) : super(key: key);
   var data;
-  Infoo(this.data);
+  Infoo1(this.data);
 
   @override
-  State<Infoo> createState() => _InfooState();
+  State<Infoo1> createState() => _Infoo1State();
 }
 
 final controller = Get.put(DarkModeController());
 
-class _InfooState extends State<Infoo> {
+class _Infoo1State extends State<Infoo1> {
   void initState() {
     super.initState();
 
     print(widget.data);
+    print("check krty hn ");
+    print(widget.data[0]["umpires"].toString());
     getplayerdata();
   }
 
@@ -61,7 +63,7 @@ class _InfooState extends State<Infoo> {
             Padding(
               padding: const EdgeInsets.all(14.0),
               child: Container(
-                height: 470,
+                height: 430,
                 width: 380,
                 decoration: BoxDecoration(
                     // ignore: prefer_const_literals_to_create_immutables
@@ -87,7 +89,7 @@ class _InfooState extends State<Infoo> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Transform.translate(
-                            offset: Offset(-30, 0),
+                            offset: Offset(-35, 0),
                             child: Container(
                               width: 80,
                               child: Text(
@@ -106,8 +108,17 @@ class _InfooState extends State<Infoo> {
                             offset: Offset(-70, 0),
                             child: Container(
                                 width: 80,
-                                child: Text(
-                                  widget.data[0]["competition"]["match_format"],
+                                child:widget.data[0]["competition"]["match_format"].toString().isNotEmpty ? Text(
+                                  widget.data[0]["competition"]["match_format"]
+                                      .toString(),
+                                  style: TextStyle(
+                                      color: controller.mode == 'light'
+                                          ? Color(0xff020e28)
+                                          : Colors.white,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w800),
+                                ):Text(
+                                 "no data",
                                   style: TextStyle(
                                       color: controller.mode == 'light'
                                           ? Color(0xff020e28)
@@ -125,7 +136,7 @@ class _InfooState extends State<Infoo> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Transform.translate(
-                            offset: Offset(-30, 0),
+                            offset: Offset(-40, 0),
                             child: Container(
                               width: 80,
                               child: Text(
@@ -145,7 +156,7 @@ class _InfooState extends State<Infoo> {
                             child: Container(
                                 width: 80,
                                 child: Text(
-                                  widget.data[0]["short_title"],
+                                  widget.data[0]["short_title"].toString(),
                                   style: TextStyle(
                                       color: controller.mode == 'light'
                                           ? Color(0xff020e28)
@@ -163,7 +174,7 @@ class _InfooState extends State<Infoo> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Transform.translate(
-                            offset: Offset(-30, 0),
+                            offset: Offset(-40, 0),
                             child: Container(
                               width: 80,
                               child: Text(
@@ -202,7 +213,7 @@ class _InfooState extends State<Infoo> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Transform.translate(
-                            offset: Offset(-28, 0),
+                            offset: Offset(-38, 0),
                             child: Container(
                               width: 80,
                               child: Text(
@@ -240,7 +251,7 @@ class _InfooState extends State<Infoo> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Transform.translate(
-                            offset: Offset(-20, 0),
+                            offset: Offset(-30, 0),
                             child: Container(
                               width: 120,
                               child: Text(
@@ -279,7 +290,7 @@ class _InfooState extends State<Infoo> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Transform.translate(
-                            offset: Offset(10, 0),
+                            offset: Offset(0, 0),
                             child: Container(
                               width: 120,
                               child: Text(
@@ -299,9 +310,9 @@ class _InfooState extends State<Infoo> {
                             child: Container(
                               width: 200,
                               child: Text(
-                                widget.data[0]["umpires"].isEmpty
-                                    ? "no data available"
-                                    : widget.data[0]["umpires"],
+                             widget.data[0]["umpires"].toString().isEmpty
+                                    ? "No Data Found"
+                                    : widget.data[0]["umpires"].toString(),
                                 maxLines: 2,
                                 style: TextStyle(
                                     color: controller.mode == 'light'
@@ -322,7 +333,7 @@ class _InfooState extends State<Infoo> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Transform.translate(
-                            offset: Offset(10, 0),
+                            offset: Offset(0, 0),
                             child: Container(
                               width: 120,
                               child: Text(
@@ -342,17 +353,19 @@ class _InfooState extends State<Infoo> {
                             child: Container(
                                 width: 200,
                                 child: Text(
-                                  widget.data[0]["referee"].isEmpty
-                                      ? "no data available"
-                                      : widget.data[0]["referee"],
+                                    widget.data[0]["referee"].toString().isEmpty
+                                    ? "No Data Found"
+                                    : widget.data[0]["referee"].toString(),
                                   style: TextStyle(
                                       color: controller.mode == 'light'
                                           ? Color(0xff020e28)
                                           : Colors.white,
                                       fontSize: 13,
                                       fontWeight: FontWeight.w800),
-                                )),
-                          ),
+                                )
+                                ),
+                               ),
+                         
                         ],
                       ),
                       SizedBox(
@@ -362,7 +375,7 @@ class _InfooState extends State<Infoo> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Transform.translate(
-                            offset: Offset(10, 0),
+                            offset: Offset(0, 0),
                             child: Container(
                               width: 120,
                               child: Text(
@@ -381,7 +394,8 @@ class _InfooState extends State<Infoo> {
                             offset: Offset(10, 0),
                             child: Container(
                                 width: 200,
-                             child:widget.data[0]["toss"][0].toString()!='text' ? Text(
+                                
+ child:widget.data[0]["toss"][0].toString()!='text' ? Text(
                                  'No Data Found',
                                   style: TextStyle(
                                       color: controller.mode == 'light'
@@ -398,7 +412,9 @@ class _InfooState extends State<Infoo> {
                                       fontSize: 13,
                                       fontWeight: FontWeight.w800),
                                 )
-                            )
+
+
+                                ),
                           ),
                         ],
                       ),
@@ -408,17 +424,17 @@ class _InfooState extends State<Infoo> {
               ),
             ),
             Transform.translate(
-              offset: Offset(0, -500.0),
+              offset: Offset(0, -470.0),
               child: Container(
                 height: 47,
-                width: 280,
+                width: 250,
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 238, 20, 20),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
                     child: Text(
-                  widget.data[0]["status_note"],
+                  widget.data[0]["status_str"],
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,

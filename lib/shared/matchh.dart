@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class MAtchinfo extends StatefulWidget {
-  const MAtchinfo({ Key? key }) : super(key: key);
-
+ // const MAtchinfo({ Key? key }) : super(key: key);
+var SeriesProfile;
+MAtchinfo(this.SeriesProfile);
   @override
   State<MAtchinfo> createState() => _MAtchinfoState();
 }
 
 class _MAtchinfoState extends State<MAtchinfo> {
+  void initState() {
+    super.initState();
+    // print(widget.PlayerProfile);
+    // getplayerdata();
+    print("fgfg");
+  }
+
+  var seriesprofile=[];
+
+
+  getplayerdata() async {
+      
+         final String apiUrl =
+        'https://rest.entitysport.com/v2/seasons/2021/competitions/${widget.SeriesProfile["cid"]}/matches?token=f94a09518bdeb24c299555502fa6bdb6&per_page=10&&paged=1';
+    final response = await http.get(Uri.parse(apiUrl));
+    var data = json.decode(response.body);
+    print(data);
+    //seriesprofile.add(data["response"]["player"]);
+    setState(() {
+      
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
  return  Scaffold( backgroundColor: Color(0xff020e28),

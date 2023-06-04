@@ -39,7 +39,7 @@ class _T20mainState extends State<T20main> {
         tabs: [
           Tab(text: "Batsman",),
           Tab(text: "Bowlers",),
-          Tab(text: "All\nRounder",),
+          Tab(text: "All Rounder",),
                   Tab(text: "Teams",),
         ],
       ),

@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../modecontroller.dart';
+import 'package:http/http.dart' as http;
 
 class Battings extends StatefulWidget {
-  const Battings({Key? key}) : super(key: key);
+  // const Battings({Key? key}) : super(key: key);
+  var ProfileList;
+  Battings(this.ProfileList);
 
   @override
   State<Battings> createState() => _BattingsState();
@@ -13,6 +18,28 @@ class Battings extends StatefulWidget {
 final controller = Get.put(DarkModeController());
 
 class _BattingsState extends State<Battings> {
+
+  void initState() {
+    super.initState();
+    // print(widget.PlayerProfile);
+    getplayerdata();
+  }
+
+  var battingProfile=[];
+
+
+  getplayerdata() async {
+      final String apiUrl =
+        'https://rest.entitysport.com/v2/players/${widget.ProfileList["pid"]}/stats?token=f94a09518bdeb24c299555502fa6bdb6';
+    final response = await http.get(Uri.parse(apiUrl));
+    var data = json.decode(response.body);
+    print(data["response"]["batting"]);
+    battingProfile.add(data["response"]["batting"]);
+    setState(() {
+      
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +63,9 @@ class _BattingsState extends State<Battings> {
                       : Color(0xff353e52),
                 ),
                 child: Scrollbar(
-                  child: SingleChildScrollView(
+                  child: battingProfile.length==0?Center(child: CircularProgressIndicator(
+          strokeWidth: 5,
+         )): SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
                       children: [
@@ -60,7 +89,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 115.0),
-                                child: Text('4',
+                                child: Text(battingProfile[0]["test"]["matches"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -70,9 +99,9 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 40.0),
-                                child: Text('24',
+                                child: Text(battingProfile[0]["odi"]["matches"].toString(),
                                     style: TextStyle(
-                                        color: controller.mode == 'light'
+                                      color: controller.mode == 'light'
                                             ? Colors.black
                                             : Colors.white,
                                         fontSize: 13,
@@ -80,7 +109,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
-                                child: Text('28',
+                                child: Text(battingProfile[0]["t20i"]["matches"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -108,7 +137,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 130.0),
-                                child: Text('7',
+                                child: Text(battingProfile[0]["test"]["innings"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -118,7 +147,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 40.0),
-                                child: Text('14',
+                                child: Text(battingProfile[0]["odi"]["innings"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -128,7 +157,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
-                                child: Text('11',
+                                child: Text(battingProfile[0]["t20i"]["innings"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -156,7 +185,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 135.0),
-                                child: Text('52',
+                                child: Text(battingProfile[0]["test"]["runs"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -166,7 +195,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 40.0),
-                                child: Text('86',
+                                child: Text(battingProfile[0]["odi"]["runs"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -176,7 +205,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
-                                child: Text('71',
+                                child: Text(battingProfile[0]["t20i"]["runs"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -204,7 +233,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 145.0),
-                                child: Text('7',
+                                child: Text(battingProfile[0]["test"]["run4"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -214,7 +243,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 45.0),
-                                child: Text('5',
+                                child: Text(battingProfile[0]["odi"]["run4"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -252,7 +281,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 155.0),
-                                child: Text('1',
+                                child: Text(battingProfile[0]["test"]["run6"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -262,7 +291,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 45.0),
-                                child: Text('7',
+                                child: Text(battingProfile[0]["odi"]["run6"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -272,7 +301,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 30.0),
-                                child: Text('7',
+                                child: Text(battingProfile[0]["t20i"]["run6"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -300,7 +329,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 135.0),
-                                child: Text('0',
+                                child: Text(battingProfile[0]["test"]["run50"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -310,7 +339,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 45.0),
-                                child: Text('0',
+                                child: Text(battingProfile[0]["odi"]["run50"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -320,7 +349,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 30.0),
-                                child: Text('0',
+                                child: Text(battingProfile[0]["t20i"]["run50"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -348,7 +377,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 115.0),
-                                child: Text('0',
+                                child: Text(battingProfile[0]["test"]["run100"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -358,7 +387,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 45.0),
-                                child: Text('0',
+                                child: Text(battingProfile[0]["odi"]["run100"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -368,7 +397,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 30.0),
-                                child: Text('0',
+                                child: Text(battingProfile[0]["t20i"]["run100"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -386,7 +415,7 @@ class _BattingsState extends State<Battings> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left: 19.0),
-                                child: Text('Highest score',
+                                child: Text("Higest score",
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -396,7 +425,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 85.0),
-                                child: Text('19',
+                                child: Text(battingProfile[0]["test"]["highest"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -406,7 +435,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 35.0),
-                                child: Text('20',
+                                child: Text(battingProfile[0]["odi"]["highest"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black
@@ -416,7 +445,7 @@ class _BattingsState extends State<Battings> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
-                                child: Text('38',
+                                child: Text(battingProfile[0]["t20i"]["highest"].toString(),
                                     style: TextStyle(
                                         color: controller.mode == 'light'
                                             ? Colors.black

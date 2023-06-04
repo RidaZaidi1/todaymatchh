@@ -1,17 +1,31 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import '../modecontroller.dart';
 
 class MyNews extends StatefulWidget {
 
+ var NewsProfile;
 
+   MyNews(this.NewsProfile);
   @override
   State<MyNews> createState() => _MyNewsState();
 }
 final controller = Get.put(DarkModeController());
 
 class _MyNewsState extends State<MyNews> {
+   void initState() {
+    super.initState();
+    // print(widget.PlayerProfile);
+    print("rida");
+    
+    
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +36,7 @@ class _MyNewsState extends State<MyNews> {
      
     SizedBox(height: 25,),
     
-    Image.asset('assets/Image1.jpg'),
+    Image.network(widget.NewsProfile["urlToImage"]),
     
     
     
@@ -46,7 +60,7 @@ class _MyNewsState extends State<MyNews> {
     
             padding: const EdgeInsets.only(left:25.0,right: 25,top: 30),
     
-            child: Text('James Anderson injury setback, England bowling stocks,Jofra Archer, cricket news',style: TextStyle(color: controller.mode == 'light'? Color(0xff020e28) :Color(0xff9aaed5),fontSize: 16,fontWeight: FontWeight.w500,),),
+            child: Text(widget.NewsProfile["title"],style: TextStyle(color: controller.mode == 'light'? Color(0xff020e28) :Color(0xff9aaed5),fontSize: 16,fontWeight: FontWeight.w500,),),
     
           ),
     
@@ -54,7 +68,7 @@ class _MyNewsState extends State<MyNews> {
     
      padding: const EdgeInsets.only(left:220.0,top: 15),
     
-     child: Text('18 May 2023',style: TextStyle(color:Color.fromARGB(255, 237, 20, 4),fontSize: 15,fontWeight: FontWeight.w400,)),
+     child: Text( DateFormat('dd-MM-yyyy').format(DateTime.parse(widget.NewsProfile["publishedAt"])).toString()   ,style: TextStyle(color:Color.fromARGB(255, 237, 20, 4),fontSize: 15,fontWeight: FontWeight.w400,)),
     
      ),
     
@@ -64,7 +78,7 @@ class _MyNewsState extends State<MyNews> {
     
      padding: const EdgeInsets.only(left:25.0,right: 25,top: 30),
     
-     child: Text('Mystery surrounds Ashes Legends Injury setback as England bowling crisis deepens\n\n We are less tehn Five week Away form the Ashes but England Already sweating on a number of injury concerns within their deplated bowling cartel Earliar this year England captain Ben stokes declared he wanted an eight-man pace squad available for...[4307 chars]',style: TextStyle(color: controller.mode == 'light'? Color(0xff06122c) :Color(0xffdad6ce), fontSize: 17,fontWeight: FontWeight.w400,)),
+     child: Text(widget.NewsProfile["content"],style: TextStyle(color: controller.mode == 'light'? Color(0xff06122c) :Color(0xffdad6ce), fontSize: 17,fontWeight: FontWeight.w400,)),
     
      )
     
